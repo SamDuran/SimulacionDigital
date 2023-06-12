@@ -13,17 +13,19 @@ using SDT_Tarea3.Utils;
 
 const float ProbabilidadReprobados = 37.4f;
 const int   ProbabilidadAbandono   = 10;
-const float ProbabilidadAprobados  = 52.6f;
 #endregion
 
+#region Variables_A_utilizar
 var random = new Random();
 int opcion, TiempoSimular = 0, AlumnosReprobados = 0, AlumnosAprobados = 0, AlumnosAbandonaron = 0, AlumnosXAula = 0 , AlumnosCursando = 0;
 int TotalReprobados = 0, TotalAprobados = 0, TotalAbandonos = 0, TotalInscritos = 0; 
-int PromedioAlumnosNuevosAux = 0, AulasPrevistas = 0;
+int MayorCantidadAulasPrevistas = 0, AulasPrevistas = 0;
 
 double output = 0;
 
 int cantidadEstudiantes = 0;
+#endregion
+
 do
 {
     Console.Clear();
@@ -35,17 +37,14 @@ do
     switch (opcion)
     {
         case 1: /* SIMULAR */
-            {
-                PromedioAlumnosNuevosAux = 0;
-
-                
+            {             
+                AlumnosReprobados = AlumnosAprobados = AlumnosAbandonaron = 0;
                 Console.Write("Digite la cantidad de años a simular: ");
                 TiempoSimular = GetIntegerInput();
 
                 Console.Write("Digite la cantidad de alumnos que podrá tener un aula: ");
                 AlumnosXAula = GetIntegerInput();
 
-                AlumnosReprobados = AlumnosAprobados = AlumnosAbandonaron = 0;
                 while(TiempoSimular<1)
                 {
                     Console.Write("El tiempo digitado no es válido.\nPor favor digite un número mayor a cero: ");
@@ -53,8 +52,9 @@ do
                 }
                 for (int i = 1; i <= TiempoSimular; i++)
                 {
-                    Console.WriteLine($"\nSIMULACIÓN DEL AÑO #{i}");
+                    Console.WriteLine($"\n\n|-------------------------------------------- SIMULACION DEL AÑO {i} ---------------------------------------------------|");
                     cantidadEstudiantes = random.Next(50, 150);
+                    AlumnosAbandonaron = AlumnosAprobados = AlumnosReprobados = 0;
                     Console.WriteLine($"Se inscribieron {cantidadEstudiantes} estudiantes.");
                     for(int estudiante = 1; estudiante<=cantidadEstudiantes;estudiante++)
                     {
@@ -74,26 +74,27 @@ do
                             AlumnosAprobados++;
                         }
                     }
-
-
-                    Console.WriteLine($"|---------------------------------------------- ESTADISTICAS AÑO {i} -----------------------------------------------------|");
-                    Console.WriteLine($"Aulas previstas   : ");
-                    Console.WriteLine($"Alumnos inscritos : {cantidadEstudiantes}");
-                    Console.WriteLine($"Alumnos reprobados: {AlumnosReprobados}");
-                    Console.WriteLine($"Alumnos abandonos : {AlumnosAbandonaron}");
-                    Console.WriteLine($"Alumnos aprobados : {AlumnosAprobados}");
-
                     AlumnosCursando = AlumnosReprobados + AlumnosAprobados;
                     AulasPrevistas = AlumnosCursando / AlumnosXAula;
                     TotalAbandonos += AlumnosAbandonaron;
                     TotalAprobados += AlumnosAprobados;
                     TotalReprobados += AlumnosReprobados;
                     TotalInscritos += cantidadEstudiantes;
+
+                    if(AulasPrevistas>MayorCantidadAulasPrevistas)
+                        MayorCantidadAulasPrevistas = AulasPrevistas;
+
+                    Console.WriteLine($"          |------------------------------------ ESTADISTICAS AÑO {i} ------------------------------------|");
+                    Console.WriteLine($"Aulas previstas   : {AulasPrevistas}");
+                    Console.WriteLine($"Alumnos inscritos : {cantidadEstudiantes}");
+                    Console.WriteLine($"Alumnos reprobados: {AlumnosReprobados}");
+                    Console.WriteLine($"Alumnos abandonos : {AlumnosAbandonaron}");
+                    Console.WriteLine($"Alumnos aprobados : {AlumnosAprobados}");
                 }
 
-                Console.WriteLine("|--------------------------------------------- ESTADISTICAS GENERALES --------------------------------------------------|");
+                Console.WriteLine("\n\n|=============================================  ESTADISTICAS GENERALES ================================================|");
                 Console.WriteLine($"Años simulados    : {TiempoSimular}");
-                Console.WriteLine($"Aulas previstas   : ");
+                Console.WriteLine($"Aulas previstas   : {MayorCantidadAulasPrevistas}");
                 Console.WriteLine($"Alumnos inscritos : {TotalInscritos}");
                 Console.WriteLine($"Alumnos reprobados: {TotalReprobados}");
                 Console.WriteLine($"Alumnos abandonos : {TotalAbandonos}");
@@ -106,14 +107,15 @@ do
             }
         case 2: /* ESTADISTICAS */
             {
+                Console.WriteLine("\n\n|=============================================  ESTADISTICAS GENERALES ================================================|");
                 Console.WriteLine($"Años simulados    : {TiempoSimular}");
-                Console.WriteLine($"Aulas previstas   : ");
-                Console.WriteLine($"Alumnos inscritos : {cantidadEstudiantes}");
-                Console.WriteLine($"Alumnos reprobados: {AlumnosReprobados}");
-                Console.WriteLine($"Alumnos abandonos : {AlumnosAbandonaron}");
-                Console.WriteLine($"Alumnos aprobados : {AlumnosAprobados}");
+                Console.WriteLine($"Aulas previstas   : {MayorCantidadAulasPrevistas}");
+                Console.WriteLine($"Alumnos inscritos : {TotalInscritos}");
+                Console.WriteLine($"Alumnos reprobados: {TotalReprobados}");
+                Console.WriteLine($"Alumnos abandonos : {TotalAbandonos}");
+                Console.WriteLine($"Alumnos aprobados : {TotalAprobados}");
 
-                Console.WriteLine("\nPresione ENTER para continuar...");
+                Console.WriteLine("Presione ENTER para continuar...");
                 Console.ReadKey();
                 Console.Beep();
                 break;
