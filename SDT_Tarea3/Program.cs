@@ -17,7 +17,11 @@ const float ProbabilidadAprobados  = 52.6f;
 #endregion
 
 var random = new Random();
-int opcion, TiempoSimular = 0;
+int opcion, TiempoSimular = 0, AlumnosReprobados = 0, AlumnosAprobados = 0, AlumnosAbandonaron = 0, AlumnosXAula = 0 , AlumnosCursando = 0;
+int TotalReprobados = 0, TotalAprobados = 0, TotalAbandonos = 0, TotalInscritos = 0; 
+int PromedioAlumnosNuevosAux = 0, AulasPrevistas = 0;
+
+double output = 0;
 
 int cantidadEstudiantes = 0;
 do
@@ -32,8 +36,16 @@ do
     {
         case 1: /* SIMULAR */
             {
+                PromedioAlumnosNuevosAux = 0;
+
+                
                 Console.Write("Digite la cantidad de años a simular: ");
                 TiempoSimular = GetIntegerInput();
+
+                Console.Write("Digite la cantidad de alumnos que podrá tener un aula: ");
+                AlumnosXAula = GetIntegerInput();
+
+                AlumnosReprobados = AlumnosAprobados = AlumnosAbandonaron = 0;
                 while(TiempoSimular<1)
                 {
                     Console.Write("El tiempo digitado no es válido.\nPor favor digite un número mayor a cero: ");
@@ -44,8 +56,49 @@ do
                     Console.WriteLine($"\nSIMULACIÓN DEL AÑO #{i}");
                     cantidadEstudiantes = random.Next(50, 150);
                     Console.WriteLine($"Se inscribieron {cantidadEstudiantes} estudiantes.");
+                    for(int estudiante = 1; estudiante<=cantidadEstudiantes;estudiante++)
+                    {
+                        output = random.Next(1, 101);
+                        if(output<= ProbabilidadReprobados)
+                        {
+                            //reprobó
+                            AlumnosReprobados++;
+                        }else if(output > ProbabilidadReprobados && output <= ProbabilidadReprobados + ProbabilidadAbandono)
+                        {
+                            //Abandonó
+                            AlumnosAbandonaron++;
+                        }
+                        else
+                        {
+                            //Aprobó
+                            AlumnosAprobados++;
+                        }
+                    }
 
+
+                    Console.WriteLine($"|---------------------------------------------- ESTADISTICAS AÑO {i} -----------------------------------------------------|");
+                    Console.WriteLine($"Aulas previstas   : ");
+                    Console.WriteLine($"Alumnos inscritos : {cantidadEstudiantes}");
+                    Console.WriteLine($"Alumnos reprobados: {AlumnosReprobados}");
+                    Console.WriteLine($"Alumnos abandonos : {AlumnosAbandonaron}");
+                    Console.WriteLine($"Alumnos aprobados : {AlumnosAprobados}");
+
+                    AlumnosCursando = AlumnosReprobados + AlumnosAprobados;
+                    AulasPrevistas = AlumnosCursando / AlumnosXAula;
+                    TotalAbandonos += AlumnosAbandonaron;
+                    TotalAprobados += AlumnosAprobados;
+                    TotalReprobados += AlumnosReprobados;
+                    TotalInscritos += cantidadEstudiantes;
                 }
+
+                Console.WriteLine("|--------------------------------------------- ESTADISTICAS GENERALES --------------------------------------------------|");
+                Console.WriteLine($"Años simulados    : {TiempoSimular}");
+                Console.WriteLine($"Aulas previstas   : ");
+                Console.WriteLine($"Alumnos inscritos : {TotalInscritos}");
+                Console.WriteLine($"Alumnos reprobados: {TotalReprobados}");
+                Console.WriteLine($"Alumnos abandonos : {TotalAbandonos}");
+                Console.WriteLine($"Alumnos aprobados : {TotalAprobados}");
+
                 Console.WriteLine("Presione ENTER para continuar...");
                 Console.ReadKey();
                 Console.Beep();
@@ -56,9 +109,9 @@ do
                 Console.WriteLine($"Años simulados    : {TiempoSimular}");
                 Console.WriteLine($"Aulas previstas   : ");
                 Console.WriteLine($"Alumnos inscritos : {cantidadEstudiantes}");
-                Console.WriteLine($"Alumnos reprobados: ");
-                Console.WriteLine($"Alumnos abandonos : ");
-                Console.WriteLine($"Alumnos aprobados : ");
+                Console.WriteLine($"Alumnos reprobados: {AlumnosReprobados}");
+                Console.WriteLine($"Alumnos abandonos : {AlumnosAbandonaron}");
+                Console.WriteLine($"Alumnos aprobados : {AlumnosAprobados}");
 
                 Console.WriteLine("\nPresione ENTER para continuar...");
                 Console.ReadKey();
