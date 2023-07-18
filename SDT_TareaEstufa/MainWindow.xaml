@@ -21,7 +21,7 @@
                     <RadioButton GroupName="Combustible">Gas</RadioButton>
                     <RadioButton GroupName="Combustible">Hoja</RadioButton>
                     <RadioButton GroupName="Combustible">Electricidad</RadioButton>
-                    <RadioButton GroupName="Combustible">Carbób Mineral</RadioButton>
+                    <RadioButton GroupName="Combustible">Carbón Mineral</RadioButton>
                 </StackPanel>
                 <StackPanel x:Name="ProductosContainer" Margin="20px">
                     <Label FontWeight="Bold">Productos:</Label>
@@ -34,10 +34,10 @@
                     <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold">Control de LLama</Label>
                     <Slider x:Name="slider" Minimum="0" Maximum="3" TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="1" VerticalAlignment="Center" Width="180" ValueChanged="Slider_ValueChanged"/>
                     <StackPanel Width="180" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0.5,0,0">
+                        <Label Margin="0,0,38,0">0</Label>
                         <Label Margin="0,0,38,0">1</Label>
                         <Label Margin="0,0,38,0">2</Label>
-                        <Label Margin="0,0,38,0">3</Label>
-                        <Label >4</Label>
+                        <Label >3</Label>
                     </StackPanel>
                 </StackPanel>
                 <Button x:Name="SimularBTN" VerticalAlignment="Center" Width="70" HorizontalAlignment="Right" Margin="99.7,0,0,0" Click="SimularClick">Simular</Button>

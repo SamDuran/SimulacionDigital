@@ -59,26 +59,29 @@ Pollo", "Mandato", MessageBoxButton.OK, MessageBoxImage.Information).Show();
 
         private void SimularClick(object sender, RoutedEventArgs e)
         {
-            if(SimularBTN.Content.ToString() == "Detener")
+            if (SimularBTN.Content.ToString() == "Detener")
             {
                 estamosCocinando = false;
                 txtStatus.Text += Environment.NewLine + "La simulacion se detuvo";
                 SimularBTN.Content = "Simular";
-                return ;
+                return;
             }
             string? combustibleSeleccionado = ObtenerRadioButtonsSeleccionados(CombustibleContainer);
             string? productoSeleccionado = ObtenerRadioButtonsSeleccionados(ProductosContainer);
 
-            if (!string.IsNullOrEmpty(combustibleSeleccionado) && !string.IsNullOrEmpty(productoSeleccionado))
+            if (!string.IsNullOrEmpty(combustibleSeleccionado) && !string.IsNullOrEmpty(productoSeleccionado) && (int)slider.Value>0)
             {
                 tiempoCoccion = tiemposCoccion[productoSeleccionado];
                 progressBar.Value = 0;
-                txtStatus.Text = $"Simulando cocción de {productoSeleccionado} utilizando {combustibleSeleccionado}. Tiempo de cocción: {tiempoCoccion} minutos. (Se simularan en segundos)";
+                txtStatus.Text = $"Simulando cocción de {productoSeleccionado} utilizando {combustibleSeleccionado}. Tiempo de cocción: {tiempoCoccion} minutos. \n(Se simularan en segundos)";
 
                 estamosCocinando = true;
                 ProcesoCoccion = new Thread(CocinarProducto);
                 ProcesoCoccion.Start();
                 SimularBTN.Content = "Detener";
+            }else if ((int)slider.Value == 0)
+            {
+                MessageBox.Show("Debe seleccionar la intensidad de la llama", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -98,18 +101,19 @@ Pollo", "Mandato", MessageBoxButton.OK, MessageBoxImage.Information).Show();
         }
         private void CocinarProducto()
         {
-            int currentProgress = 0;
-            int maxProgress = tiempoCoccion ; 
-            while (estamosCocinando && currentProgress < maxProgress)
+            int progresoActual = 0;
+            int tiempoMaximo = tiempoCoccion;
+            int velocidadCoccion;
+            while (estamosCocinando && progresoActual < tiempoMaximo)
             {
-                
-                Thread.Sleep(1000); 
-                currentProgress++;
+                velocidadCoccion = (tiempoCoccion * 100) + 1000;
+                Thread.Sleep(velocidadCoccion);
+                progresoActual++;
 
-                
+
                 Dispatcher.Invoke(() =>
                 {
-                    progressBar.Value = (double)currentProgress / maxProgress * 100;
+                    progressBar.Value = (double)progresoActual / tiempoMaximo * 100;
                 });
             }
 
@@ -121,38 +125,44 @@ Pollo", "Mandato", MessageBoxButton.OK, MessageBoxImage.Information).Show();
         }
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-                float newTiempoCoccion = 0;
+            int newTiempoCoccion = 0;
+            var llama = "";
             if (estamosCocinando)
             {
-                switch((int)slider.Value)
+                switch ((int)slider.Value)
                 {
+                    case 0:
+                        {
+                            newTiempoCoccion = 0;
+                            llama = "Apagada";
+                            break;
+                        }
                     case 1:
                         {
-                            newTiempoCoccion = 25/100;
+                            newTiempoCoccion = 3;
+                            llama = "Baja";
                             break;
                         }
                     case 2:
                         {
-                            newTiempoCoccion = 50/100;
+                            newTiempoCoccion = 6;
+                            llama = "Media";
                             break;
                         }
                     case 3:
                         {
-                            newTiempoCoccion = 75/100;
-                            break;
-                        }
-                    case 4:
-                        {
-                            newTiempoCoccion = 1;
+                            newTiempoCoccion = 10;
+                            llama = "Alta";
                             break;
                         }
 
                 }
                 int currentProgress = (int)(progressBar.Value / 100 * (tiempoCoccion * 60));
 
-                txtStatus.Text += Environment.NewLine+ $"Simulando cocción con nueva configuración. Tiempo de cocción: {newTiempoCoccion} minutos. Progreso actual: {currentProgress} segundos.";
+                txtStatus.Text += Environment.NewLine + $"Simulando cocción con llama {llama}, Tiempo de cocción: {newTiempoCoccion} minutos. \nTiempo ocurrido: {currentProgress} segundos.";
+                txtStatus.Text += Environment.NewLine + $"Progreso: {(currentProgress/tiempoCoccion)*100} %";
 
-                tiempoCoccion = (int)newTiempoCoccion;
+                tiempoCoccion = newTiempoCoccion;
             }
         }
 
