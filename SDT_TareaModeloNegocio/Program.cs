@@ -18,89 +18,89 @@
  
  * - Ingresos / Precios            : (¿Cual es su estructura de ingresos? | ¿Como gana dinero? | ¿Que tipo de ingresos obtiene usted?{transacciones bancarias, facturacion directa, pago por credito, etc})*/
 
-using SDT_TareaModeloNegocio;
-
-Preguntas[] SociosEstrategicos = new Preguntas[3];
-Preguntas ActividadesClaves = new Preguntas();
-Preguntas RecusosClaves = new Preguntas();
-Preguntas[] PropuestaDeValor = new Preguntas[3];
-Preguntas[] AdministracionDeLaRelacion = new Preguntas[2];
-Preguntas[] CanalesDeDistribucion  = new Preguntas[2];
-Preguntas[] SegmentoDeMercado  = new Preguntas[3];
-Preguntas[] EstructuraDeCosto  = new Preguntas[2];
-Preguntas[] IngresosPrecios  = new Preguntas[3];
-
-
-string segmentoMercado = ObtenerEntrada("Segmento de Mercado");
-string estructuraCosto = ObtenerEntrada("Estructura de Costo");
-string ingresosPrecios = ObtenerEntrada("Ingresos / Precios");
-
-double ingresosAnuales = CalcularIngresos(ingresosPrecios);
-double costoAnual = CalcularCosto(estructuraCosto);
-double margenUtilidad = CalcularMargenUtilidad(ingresosAnuales, costoAnual);
-string resultado = EvaluarExito(margenUtilidad);
-
-
-
-Console.WriteLine("Simulación de éxito de la empresa:");
-Console.WriteLine("=================================");
-Console.WriteLine("- Segmento de Mercado: " + segmentoMercado);
-Console.WriteLine("- Estructura de Costo: " + estructuraCosto);
-Console.WriteLine("- Ingresos / Precios: " + ingresosPrecios);
-Console.WriteLine("- Ingresos Anuales: $" + ingresosAnuales);
-Console.WriteLine("- Costo Anual: $" + costoAnual);
-Console.WriteLine("- Margen de Utilidad: " + margenUtilidad.ToString("P"));
-Console.WriteLine("- Resultado: " + resultado);
-
-
-static string ObtenerEntrada(string nombreCampo)
+class Program
 {
-    Console.Write("Ingrese " + nombreCampo + ": ");
-    return Utilities.ObtenerValorString();
-}
-
-static double CalcularIngresos(string ingresosPrecios)
-{
-    // Implementar lógica para calcular los ingresos anuales
-    // basados en la estructura de precios y ventas proyectadas
-    // usar fórmulas, algoritmos o datos históricos
-    // supongamos que ingresosPrecios es el ingreso anual proyectado.
-
-    return Convert.ToDouble(ingresosPrecios);
-}
-
-static double CalcularCosto(string estructuraCosto)
-{
-    // Implementar lógica para calcular el costo anual
-    // basado en la estructura de costos de la empresa
-    // considerar costos fijos, costos variables y otros factores
-    // supongamos que estructuraCosto es el costo anual proyectado
-    return Convert.ToDouble(estructuraCosto);
-}
-
-static double CalcularMargenUtilidad(double ingresosAnuales, double costoAnual)
-{
-    // Calcular el margen de utilidad como un porcentaje
-    if (ingresosAnuales > 0)
+    static void Main(string[] args)
     {
-        return (ingresosAnuales - costoAnual) / ingresosAnuales;
+        Console.WriteLine("Evaluación de Conveniencia de Modelo de Negocio");
+        Console.WriteLine("--------------------------------------------");
+        Console.WriteLine("Responde las siguientes preguntas con valores numéricos del 1 al 5 (1 = Mínimo, 5 = Máximo)");
+
+        // Preguntas estratégicas
+        int estrategico = Pregunta("¿Qué tan estratégico es el modelo de negocio?");
+        int serviciosRecursos = Pregunta("¿Qué tan atractivos son los servicios y recursos ofrecidos?");
+
+        // Preguntas de subcontratación
+        int subcontratacion = Pregunta("¿Qué tan viable es la subcontratación de ciertas actividades internas?");
+
+        // Preguntas de actividades claves
+        int actividadesClaves = Pregunta("¿Qué tan cruciales son las actividades claves en el modelo de negocio?");
+        int procesosClaves = Pregunta("¿Qué tan bien definidos están los procesos claves en tu modelo de negocio?");
+
+        // Preguntas de administración de relación con clientes
+        int relacionClientes = Pregunta("¿Qué tan eficiente es tu administración de relaciones con clientes?");
+        int canalesDistribucion = Pregunta("¿Qué tan efectivos son tus canales de distribución?");
+
+        // Preguntas de recursos claves y socios estratégicos
+        int recursosClaves = Pregunta("¿Qué tan importantes son los recursos clave para tu negocio?");
+        int sociosEstrategicos = Pregunta("¿Qué tan beneficiosos son tus socios estratégicos para el modelo de negocio?");
+
+        // Preguntas de Innovación y Diferenciación
+        int innovacion = Pregunta("¿Qué tan innovador es tu modelo de negocio en comparación con los competidores?");
+        int diferenciacion = Pregunta("¿Qué tan bien te diferencias en el mercado con tus productos/servicios?");
+
+        // Preguntas de Segmentos de Clientes
+        int segmentosClientes = Pregunta("¿Qué tan claramente identificas y atiendes a los diferentes segmentos de clientes?");
+        int personalizacionPropuesta = Pregunta("¿Qué tan personalizada es tu propuesta de valor para cada segmento de clientes?");
+
+        // Preguntas de Gestión de Recursos Humanos
+        int reclutamientoSeleccion = Pregunta("¿Cómo es tu proceso de reclutamiento y selección de personal?");
+        int capacitacionDesarrollo = Pregunta("¿Qué enfoque tienes para capacitar y desarrollar las habilidades de tus empleados?");
+
+        // Preguntas de Sostenibilidad y Responsabilidad Social
+        int sostenibilidadAmbiental = Pregunta("¿Qué acciones implementas para minimizar el impacto ambiental de tu negocio?");
+        int responsabilidadSocial = Pregunta("¿Qué iniciativas de responsabilidad social llevas a cabo para contribuir a la comunidad?");
+
+        // Preguntas de Análisis Financiero
+        int proyeccionFinanciera = Pregunta("¿Cuál es la proyección de ingresos y gastos para los próximos años?");
+        int puntoEquilibrio = Pregunta("¿Cuál es el punto de equilibrio de tu modelo de negocio?");
+
+        // Preguntas de Estrategia de Expansión y Penetración de Mercado
+        int expansionNegocios = Pregunta("¿Cuáles son tus planes de expansión a nuevos mercados o regiones?");
+        int adaptabilidadMercado = Pregunta("¿Cómo te aseguras de que tu modelo de negocio sea adaptable a diferentes mercados?");
+
+        
+        int puntajeTotal = estrategico + serviciosRecursos + subcontratacion + actividadesClaves + procesosClaves +
+            relacionClientes + canalesDistribucion + recursosClaves + sociosEstrategicos +
+            innovacion + diferenciacion + segmentosClientes + personalizacionPropuesta +
+            reclutamientoSeleccion + capacitacionDesarrollo + sostenibilidadAmbiental + responsabilidadSocial +
+            proyeccionFinanciera + puntoEquilibrio + expansionNegocios + adaptabilidadMercado;
+        int puntajeMaximo = 20 * 5; // 20 preguntas con valores de 1 a 5
+        double porcentaje = ((double)puntajeTotal / puntajeMaximo) * 100;
+
+        Console.WriteLine("--------------------------------------------");
+        Console.WriteLine($"Resultado de la evaluación: {porcentaje}%");
+
+        if (porcentaje >= 70)
+        {
+            Console.WriteLine("El modelo de negocio parece ser conveniente.");
+        }
+        else
+        {
+            Console.WriteLine("El modelo de negocio necesita ser revisado y mejorado.");
+        }
+
+        Console.ReadKey();
     }
-    else
-    {
-        return 0;
-    }
-}
 
-static string EvaluarExito(double margenUtilidad)
-{
-    // Evaluar el éxito de la empresa en función del margen de utilidad
-    // Quizas establecer criterios de éxito según métricas y objetivos.
-    if (margenUtilidad >= 0.2) // 20% de margen de utilidad como criterio de éxito
+    static int Pregunta(string pregunta)
     {
-        return "Éxito";
-    }
-    else
-    {
-        return "Fracaso";
+        int respuesta;
+        do
+        {
+            Console.Write($"{pregunta} (1-5): ");
+        } while (!int.TryParse(Console.ReadLine(), out respuesta) || respuesta < 1 || respuesta > 5);
+
+        return respuesta;
     }
 }
