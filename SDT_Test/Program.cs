@@ -99,7 +99,7 @@
 
 
             Console.WriteLine("\n\n=============================================");
-            Console.WriteLine("Puntiación en cada aspecto:\n");
+            Console.WriteLine("Puntuación en cada aspecto:\n");
 
 
 
