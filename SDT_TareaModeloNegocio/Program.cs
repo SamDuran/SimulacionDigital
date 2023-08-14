@@ -1,24 +1,4 @@
-﻿/* MODELO DE NEGOCIO: 
- 
- * - Socios Estrategicos           : (¿Quienes son? | ¿Quienes le ofrecen servicios y recursos estrategicos? | ¿Que actividades internas podrian subcontratarse para bajar costos y mejorar la calidad?)
- 
- * - Actividades Claves            : (¿Cuales son las actividades y los procesos clave en su modelo de negocios?) 
- 
- * - Recursos Claves               : (¿Cuales son los recursos claves y mas costosos en su BM?)
- 
- * - Propuesta de Valor            : (¿Que ofrece a sus clientes en terminos de productos/servicios? | ¿Que es lo que pagan los clientes? | ¿Que lo diferencia de otros oferentes?) 
- 
- * - Administracion de la relacion : (¿Que tipo de relacion contruye usted con sus clientes? | ¿Tiene usted alguna estrategia? ) 
- 
- * - Canales de distribucion       : (¿Como hace el cliente para adquirir el producto? | ¿A travez de que medios?)
- 
- * - Segmento de mercado           : (¿Quienes son sus clientes? | ¿Puede describir sus diferentes tipos clientes? | ¿Cual es la diferencia de cada segmento?)
- 
- * - Estructura de costo           : (¿Como luce su estructura de costos? | ¿Cuales son los mas importantes costos al poner en funcionamiento su empresa?) 
- 
- * - Ingresos / Precios            : (¿Cual es su estructura de ingresos? | ¿Como gana dinero? | ¿Que tipo de ingresos obtiene usted?{transacciones bancarias, facturacion directa, pago por credito, etc})*/
-
-class Program
+﻿class Program
 {
     static void Main(string[] args)
     {
