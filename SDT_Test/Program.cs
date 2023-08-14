@@ -77,11 +77,7 @@
 
 
             Console.WriteLine("Por favor, responde las siguientes preguntas con una opción del 1 al 5, donde 1 es 'Totalmente en desacuerdo' y 5 es 'Totalmente de acuerdo':");
-            Console.WriteLine("1) Totalmente en desacuerdo");
-            Console.WriteLine("2) En desacuerdo");
-            Console.WriteLine("3) Neutral");
-            Console.WriteLine("4) De acuerdo");
-            Console.WriteLine("5) Totalmente de acuerdo \n");
+            
             foreach (var aspecto in preguntasPorAspecto)
             {
                 foreach (var pregunta in aspecto.Value)
